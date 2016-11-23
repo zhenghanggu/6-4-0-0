@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ERMS</title>
+
+
+
+
+<link href="{{ url_for('static',filename='css/bootstrap.css') }}" rel="stylesheet">
+<link href="{{ url_for('static',filename='css/styles.css') }}" rel="stylesheet">
+
+
+<!--[if lt IE 9]>
+<script src="js/html5shiv.js"></script>
+<script src="js/respond.min.js"></script>
+<![endif]-->
+
+</head>
+
+<body>
+	
+	<div class="row">
+		<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2">
+			<div class="login-panel panel panel-default">
+				<div class="panel-heading">Search Resource</div>
+				<div class="panel-body">
+					<div>
+
+
+					<form class="form-horizontal col-sm-11 col-md-11" action="{{ url_for('search') }}" method="post">
+						
+							<fieldset>
+
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="description">Keyword</label>
+									<div class="col-md-9">
+										<input id="keyword" type="text" value="" class="field left" name = "keyword">
+									</div>
+								</div>
+
+															
+								<div class="form-group">
+									<label class="col-md-3 control-label">ESF</label>
+									<div class="col-md-9">
+										<select id="primary-esfs" class="form-control" name="primary-esf-form">
+											<option value=""> -- select an option -- </option>
+										{% for item in g.esf %}
+											<option value="{{ item[0] }}">{{ item[1] }}</option>
+										{% endfor %}
+										</select>
+									</div>	
+								</div>
+
+
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="description">Location</label>
+									<div class="col-md-9">
+										<input id="location" type="text" value="" class="field left" name = "location">
+										(Kilometers within Incident)
+									</div>
+								</div>
+								
+								<!--{% if g.incidents is not none %}-->
+        							<div class="form-group">
+									<label class="col-md-3 control-label">Incident</label>
+									<div class="col-md-9">
+										<select id="incident" class="form-control" name="incident">
+										 <option value=""> -- select an option -- </option>
+										{% for item in g.incidents %}
+											<option value="{{ item[0] }}">{{ item[1] }}</option>
+										{% endfor %}
+										</select>
+									</div>	
+								</div>
+		    					<!--{% endif %}-->
+
+								
+								
+								
+								
+								<!-- Form actions -->
+								<div class="form-group">
+								    <div class="row pull-right">
+								        <button type="submit" class="btn btn-primary btn-md">Submit Button</button>
+										<button type="reset" id="cancelButton" class="btn btn-default">Cancel</button>
+								    </div>
+								</div>
+								
+							</fieldset>
+							<hr>
+						</form>
+
+
+								<hr>
+								<div class="col-md-9">
+									<h5>{{ g.tableTitle }}</h5>
+								</div>
+								
+		    					<!-- SHOW SEARCH RESULTS -->
+		    					{{ g.table }}
+					</div>
+					
+				</div>
+			</div>
+		</div><!-- /.col-->
+	</div><!-- /.row -->	
+	
+		
+<!--
+	<script src="{{ url_for('static',filename='js/jquery-1.11.1.min.js') }}"></script>
+	<script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>>
+-->	
+
+	<script src="{{ url_for('static',filename='js/jquery-1.11.1.min.js') }}"></script>
+	<script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
+	<script type="text/javascript">
+		
+		$("#cancelButton").click(function(){window.location.href="/menu"})
+	</script>
+
+	<script>
+		!function ($) {
+			$(document).on("click","ul.nav li.parent > a > span.icon", function(){		  
+				$(this).find('em:first').toggleClass("glyphicon-minus");	  
+			}); 
+			$(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
+		}(window.jQuery);
+
+		$(window).on('resize', function () {
+		  if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
+		})
+		$(window).on('resize', function () {
+		  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
+		})
+	</script>	
+</body>
+
+</html>
