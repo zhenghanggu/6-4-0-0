@@ -1,0 +1,11 @@
+#!/Users/andrewjk/Dropbox/GATECH/6400/git/6400Fall16Team049/app/env/bin/python
+
+# -*- coding: utf-8 -*-
+import re
+import sys
+
+from babel.messages.frontend import main
+
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    sys.exit(main())
